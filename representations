@@ -130,3 +130,42 @@ team_groupby.head(5)
 # - Manchester City
 # - Arsenal
 # - Everton
+
+
+team_groupby=team_groupby.sort_values('total_scoring_att_x',ascending=False)
+team_groupby.head(5)
+# Les 3 équipes qui tentent le plus de tirs par match sont :
+# - Liverpool
+# - Chelsea
+# - Tottenham
+
+df_score=df_1718[['id_match','team_name_home','goals_x','goals_y','team_name_away']]
+df_score.head()
+
+df_score.insert(5,'winner',np.linspace(0,0,len(df_score['team_name_home'])))
+
+
+# Ajout d'une colonne winner
+for i in df_score['team_name_home'].index:
+    
+    if(df_score['goals_x'][i] > df_score['goals_y'][i]):
+        df_score['winner'][i]=0#df_score['team_name_home'][i]  :  équivaut à 
+    elif(df_score['goals_x'][i]  < df_score['goals_y'][i]):
+        df_score['winner'][i]=1#df_score['team_name_away'][i]
+    else:
+        df_score['winner'][i]=2#'draw'
+df_score.head(20)
+
+
+#  Matrice de corrélation entre les variables (coefficients de Pearson)
+df_corr = df_1718.drop(['team_name_home', 'date_x','team_name_away','date_y'],1)
+df_corr['winner']=df_score['winner']
+# df_corr.head()
+a4_dims = (20, 20)
+fig, ax = plt.subplots(figsize=a4_dims)
+sns.heatmap(df_corr.corr(),ax=ax)
+
+# Peu de variables sont corrélées à une des variables cibles 'winner'
+# Les principales sont :
+# - La note de l'équipe (variable que nous n'avons pas à l'avance pour un match défini)
+# - Le nombre de but pour un match
