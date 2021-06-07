@@ -93,12 +93,40 @@ for column in cols:
     
 df_1718.info()
 
-
-# Graphique de la répartition des moyennes attribuées aux clubs hôtes (à domicile)
 a4_dims = (15, 15)
 fig, ax = plt.subplots(figsize=a4_dims)
-sns.catplot(ax=ax,x='team_name_home', y='team_rating_home', kind='violin', data=df_1718)#,data['team_rating_home']
-
+g=sns.catplot(ax=ax,x='team_name_home', y='team_rating_home', kind='violin', data=df_1718)  #,data['team_rating_home']
+# plt.xticks(rotation=90)
+g.set_xticklabels(rotation=90) # Je n'arrive pas à afficher les labels des axes à 90° pour une meilleure visibilité.
 plt.show()
 
 
+
+# Graphique montrant le nombre de buts marqués par rapport au nombre de tirs tentés
+# a4_dims = (15, 15)
+# fig, ax = plt.subplots(figsize=a4_dims)
+
+functions_to_apply = {
+    'total_scoring_att_x' : 'mean',
+    'goals_x' : 'mean',
+}
+
+# Encodage du nom des clubs en 20 catégories
+le=LabelEncoder()
+
+df_1718.insert(3,'team_name_enc',le.fit_transform(df_1718['team_name_home']),True)
+team_groupby=df_1718.groupby('team_name_home').agg(functions_to_apply)
+
+df_1718.insert(3,'team_name_enc',le.fit_transform(df_1718['team_name_home']),True)
+team_groupby=df_1718.groupby('team_name_home').agg(functions_to_apply)
+
+# sns.relplot(x='total_scoring_att_x', y='goals_x',hue=df_1718, data=team_groupby,alpha=0.5,ax=ax)
+# plt.show()
+team_groupby['goal_attempt_ratio']=team_groupby['goals_x']/team_groupby['total_scoring_att_x']
+team_groupby=team_groupby.sort_values('goal_attempt_ratio',ascending=False)
+team_groupby.head(5)
+
+# On remarque que les 3 équipes les plus efficientes au tir sont :
+# - Manchester City
+# - Arsenal
+# - Everton
