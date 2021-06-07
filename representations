@@ -163,7 +163,8 @@ df_corr['winner']=df_score['winner']
 # df_corr.head()
 a4_dims = (20, 20)
 fig, ax = plt.subplots(figsize=a4_dims)
-sns.heatmap(df_corr.corr(),ax=ax)
+sns.heatmap(df_corr.corr(),ax=ax)).set_title('Matrice de corrélation des variables')
+plt.show()
 
 # Peu de variables sont corrélées à une des variables cibles 'winner'
 # Les principales sont :
