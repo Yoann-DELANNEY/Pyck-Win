@@ -152,7 +152,7 @@ def preprocess(df_stats,bookmakers):
     #Changement de format de date_x et Date pour fusionner 
     df_match['date_x'] = pd.to_datetime(df_match['date_x'])
     bookmakers['Date'] = pd.to_datetime(bookmakers['Date'])
-    #dftest = pd.merge(df,bookmakers,how='left',left_on=['team_name_home','date_x','team_name_away'],right_on=['HomeTeam','Date','AwayTeam'])
+    
     df = pd.merge(df_match,bookmakers,how='inner',left_on=['team_name_home','date_x','team_name_away'],right_on=['HomeTeam','Date','AwayTeam'])
 
     df=df.replace(np.nan, 0)
