@@ -96,8 +96,80 @@ def imports(saison,path=''):
 
 def preprocess(df_stats,bookmakers):
     
+
+    data_saison = json.load(open("season_match_stats.json"))
     
-#     Voir avec Gauthier
+    table = []
+    for index, value in data_saison.items():
+        ligne = [index] + list(value.values())  
+        table.append(ligne)
+    
+    df_saison = pd.DataFrame(table, columns = ['id_match', 'home_team_id', 'away_team_id', 'home_team_name', 'away_team_name', 'date_string', 'half_time_score', 'full_time_score'])
+    df_saison.head()
+    
+    
+
+    data_match = json.load(open("season_stats.json",encoding='utf-8'))
+    
+    table = []
+    for index, value in data_match.items():
+        home = dict(list(value.values())[0])
+        ligne = [index] + list(home['team_details'].values())  
+        table.append(ligne)
+    
+    df_match_home = pd.DataFrame(table, columns = ['id_match', 'team_id_home', 'team_name_home', 'team_rating_home', 'date'])
+
+    compteur = 0
+    for index, value in data_match.items():
+        home = dict(list(value.values())[0])
+    
+        for i,j in home['aggregate_stats'].items() :
+            df_match_home.loc[compteur, i] = j
+         
+        compteur += 1
+    
+    table = []
+
+    for index, value in data_match.items():
+        away = dict(list(value.values())[1])
+        ligne = [index] + list(away['team_details'].values())  
+        table.append(ligne)
+    
+    df_match_away = pd.DataFrame(table, columns = ['id_match', 'team_id_away', 'team_name_away', 'team_rating_away', 'date'])
+
+    compteur = 0
+    for index, value in data_match.items():
+        away = dict(list(value.values())[1])
+    
+        for i,j in away['aggregate_stats'].items() :
+            df_match_away.loc[compteur, i] = j
+         
+    compteur += 1
+        
+    df_match = pd.merge(df_match_home,df_match_away,how='left',on='id_match')       
+    bookmakers = pd.read_csv('season-1617_bookmakers.csv')
+
+    #Changement de format de date_x et Date pour fusionner 
+    df_match['date_x'] = pd.to_datetime(df_match['date_x'])
+    bookmakers['Date'] = pd.to_datetime(bookmakers['Date'])
+    #dftest = pd.merge(df,bookmakers,how='left',left_on=['team_name_home','date_x','team_name_away'],right_on=['HomeTeam','Date','AwayTeam'])
+    df = pd.merge(df_match,bookmakers,how='inner',left_on=['team_name_home','date_x','team_name_away'],right_on=['HomeTeam','Date','AwayTeam'])
+
+    df=df.replace(np.nan, 0)
+
+
+
+    #On Dichotomise la variable team_name_home
+    dummy = pd.get_dummies (df['team_name_home'])
+    df = pd.concat( [df, dummy ], axis = 1)
+    df.drop( ['team_name_home'], axis = 1)
+
+    #drop des pronostics du bookmakers pinnacle
+    df.drop(['PSH'],axis =1)
+    df.drop(['PSD'],axis =1)
+    df.drop(['PSA'],axis =1)
+
+    
 
     return df
 
