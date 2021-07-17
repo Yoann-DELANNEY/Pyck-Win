@@ -48,23 +48,30 @@ Les visualisations suivantes permettent de comprendre au mieux le jeu de donnée
 
 
 ### Statistiques de matchs :
-![Correlation entre possession et taux de victoire](https://user-images.githubusercontent.com/84863172/126036613-4966131a-144c-41bf-b895-ee541e70a1ac.png)
-\
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/84863172/126036613-4966131a-144c-41bf-b895-ee541e70a1ac.png">
+</p>
+
 On remarque que la possession est un facteur important dans la prédiction de l'issu d'un match de football.
 
-![repartition victoire à domicile-extérieur2](https://user-images.githubusercontent.com/84863172/126036616-d2e4f492-a09f-4d39-b953-e519c3e7277b.png)
-\
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/84863172/126036616-d2e4f492-a09f-4d39-b953-e519c3e7277b.png">
+</p>
+
 De même le fait de jouer à domicile augmentent les chances de gagner un match.
 
 
 ### Cotes de bookmakers :
-![repartition bookmakers](https://user-images.githubusercontent.com/84863172/126036620-20680ee6-e411-4d8b-b6b1-3d32173fb9fc.png)
-\
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/84863172/126036620-20680ee6-e411-4d8b-b6b1-3d32173fb9fc.png">
+</p>
 
 Le bookmaker effectuant les meilleures prédictions est le bookmaker nommé PSC.
 
-![repartition cotes H,D,A](https://user-images.githubusercontent.com/84863172/126036623-b95f22ef-5f5e-4537-855b-5c577f7774bd.png)
-\
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/84863172/126036623-b95f22ef-5f5e-4537-855b-5c577f7774bd.png">
+</p>
+
 On remarque à bon escient que les bookmakers ont tendances à mettre des côtes moins élevées sur les victoires à domiciles.
 
 
@@ -87,7 +94,9 @@ Les données sont normalisées transformant chaque statistique en des valeurs co
 
 Paramètres d'optimisation :
 
-![parameters_svm](https://user-images.githubusercontent.com/84863172/126036461-8e985a19-b321-4ae3-9373-b42c5d8e0381.PNG)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/84863172/126036461-8e985a19-b321-4ae3-9373-b42c5d8e0381.PNG">
+</p>
 
 La métrique choisit est la précision car nous nous intéressons principalement à la classe des vrais positifs.
 Avant optimisation :<br/>
@@ -110,7 +119,9 @@ Précision sur le jeu de test :  0.592
 Simuler un pari permet de voir s'il y a gain ou perte à l'issue un match sur lequel l'algorithme a effectué une prédiction.
 La simulation mise sur l'issue ayant la plus grande probabilité et avec un seuil minimum de 60%.
 
-![res-simus](https://user-images.githubusercontent.com/84863172/126037150-f82e3ce5-0c2f-4cbc-afd3-3fae0dfa23b5.PNG)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/84863172/126037150-f82e3ce5-0c2f-4cbc-afd3-3fae0dfa23b5.PNG">
+</p>
 
 
 
