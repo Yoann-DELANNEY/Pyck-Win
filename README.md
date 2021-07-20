@@ -98,7 +98,7 @@ Paramètres d'optimisation :
   <img src="https://user-images.githubusercontent.com/84863172/126036461-8e985a19-b321-4ae3-9373-b42c5d8e0381.PNG">
 </p>
 
-La métrique choisit est la précision car nous nous intéressons principalement à la classe des vrais positifs.
+La métrique choisit est la précision car nous nous intéressons principalement à la classe des vrais positifs.<br/>
 Avant optimisation :<br/>
 Précision sur le jeu de train :  0.671<br/>
 Précision sur le jeu de test :  0.592
