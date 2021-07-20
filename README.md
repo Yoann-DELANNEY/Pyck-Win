@@ -90,6 +90,13 @@ Les données sont normalisées transformant chaque statistique en des valeurs co
 
 
 ## Modèles étudiés :
+
+3 modèles sont étudiés :
+- Modèle SVM
+- Modèle Random Forest Classifier
+- Modèle XGBoost
+
+
 ### SVM :
 
 Paramètres d'optimisation :
