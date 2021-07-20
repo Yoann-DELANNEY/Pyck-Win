@@ -72,7 +72,7 @@ Le bookmaker effectuant les meilleures prédictions est le bookmaker nommé PSC.
   <img src="https://user-images.githubusercontent.com/84863172/126036623-b95f22ef-5f5e-4537-855b-5c577f7774bd.png">
 </p>
 
-On remarque à bon escient que les bookmakers ont tendances à mettre des côtes moins élevées sur les victoires à domiciles.
+On remarque à bon escient que les bookmakers ont tendance à mettre des côtes moins élevées sur les victoires à domiciles.
 
 
 ## Séparation du jeu de données :
