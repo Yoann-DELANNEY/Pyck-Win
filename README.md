@@ -124,7 +124,7 @@ Précision sur le jeu de test :  0.592
 
 ### Simulation de paris
 Simuler un pari permet de voir s'il y a gain ou perte à l'issue un match sur lequel l'algorithme a effectué une prédiction.
-La simulation mise sur l'issue ayant la plus grande probabilité et avec un seuil minimum de 60%.
+La simulation mise sur les issue où la probabilité du modèle dépasse la probabilité du bookmaker, avec un seuil minimum de 60%.
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/84863172/126037150-f82e3ce5-0c2f-4cbc-afd3-3fae0dfa23b5.PNG">
