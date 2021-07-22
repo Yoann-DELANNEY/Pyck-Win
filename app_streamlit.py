@@ -16,7 +16,7 @@ from sklearn.ensemble import RandomForestClassifier
 import xgboost as xgb
 from sklearn import preprocessing
 
-
+import socket
 import tkinter as tk
 from tkinter import filedialog
 
@@ -50,10 +50,15 @@ root.withdraw()
 root.wm_attributes('-topmost', 1)
 
 # Folder picker button
-st.write('Folder Picker')
-st.write('Please select a folder:')
-clicked = st.button('Folder Picker')
-dirname=""
+
+st.write("Sélectionner un dossier :")
+clicked = st.button('Parcourir')
+dirname_init=os.getcwd()
+
+#@st.cache(hash_funcs={socket.socket: id})
+#def bindSocket(socket, port, addr):
+#    print("Binding receive socket to {}, port {}.".format(udp_addr_receive, udp_port_receive))
+#    socket.bind((addr, port))
 if clicked:
     dirname = st.text_input('Selected folder:', filedialog.askdirectory(master=root))
     os.listdir(dirname)
@@ -131,7 +136,7 @@ if choix==options[2]:
 
 
 st.write("Matrice de confusion")
-# st.write(pd.crosstab(y_test, y_pred, rownames=['Classes réelles'], colnames=['Classes prédites']))
+#st.write(pd.crosstab(y_test, y_pred, rownames=['Classes réelles'], colnames=['Classes prédites']))
 st.write(y_pred_proba)
 
 
