@@ -189,4 +189,4 @@ gain_paris(matchs, resultats, montants)
 
 #Affichage des bénéfices par matchs
 st.write("Benefice/perte par match")
-st.write(df.loc[304:][['team_name_home','team_name_away', 'montant', 'benefices']])
+st.write(df.loc[304:][['montant', 'benefices']])
