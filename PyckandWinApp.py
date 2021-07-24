@@ -31,6 +31,8 @@ st.markdown(text)
 dataset_container = st.sidebar.beta_expander("Configuration", True)
 with dataset_container:
 	dataset = st.selectbox("Choisir une saison", ("Saison 14-15", "Saison 15-16", "Saison 16-17","Saison 17-18"))
+with dataset_container:
+	models = st.selectbox("Choisir un modèle", ("SVM", "RandomForest", "XGBoost"))
 	
 if dataset == "Saison 14-15":
 	df = pd.read_csv(r"C:\Users\Olivier\Desktop\proj\Streamlit\bookmakers14-15.csv", index_col=0)	
@@ -55,11 +57,10 @@ scaler = preprocessing.StandardScaler().fit(X_train)
 X_train_scaled = scaler.transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
-options = ["SVM","Random Forest Classifier","XGBoost"]
-choix = st.radio("Choisir un modèle", options)
+
 
 # SVM
-if choix==options[0]: 
+if models=="SVM": 
 		clf=SVC(probability=True)
 		parametres = {'C':[0.1,1,10], 'kernel':['rbf','linear', 'poly'], 'gamma':[0.001, 0.1, 0.5]}
 		model = GridSearchCV(estimator=clf, param_grid=parametres)
@@ -69,7 +70,7 @@ if choix==options[0]:
 		y_pred_proba = model.predict_proba(X_test_scaled)
     
 # RF
-if choix==options[1]:
+if models=="RandomForest":
     
 		model = RandomForestClassifier(n_estimators = 1000,
 								max_depth=4,
@@ -81,7 +82,7 @@ if choix==options[1]:
 		y_pred_proba = model.predict_proba(X_test_scaled)
     
 # XGBoost
-if choix==options[2]:
+if models=="XGBoost":
 		train = xgb.DMatrix(data=X_train_scaled, label=y_train)
 		test = xgb.DMatrix(data=X_test_scaled, label=y_test)
 		params = {'booster': 'gblinear', 'learning_rate': 0.001, 'objective': 'multi:softprob', 'num_class':3}
@@ -103,11 +104,9 @@ st.write(y_pred_proba)
 if dataset == "Saison 14-15":
 	
 	seuil_pari = .6
-
 	df['Prob_H'] = 0.0
 	df['Prob_D'] = 0.0
 	df['Prob_A'] = 0.0
-
 
 	try:
 		df.loc[244:]['Prob_H'] = y_pred_proba[:,0]
@@ -119,8 +118,7 @@ if dataset == "Saison 14-15":
 	df['bet_H?'] = np.where((df['Prob_H']>df['Prob_bk_H']) & (df['Prob_H']>seuil_pari), 1 , 0)
 	df['bet_D?'] = np.where((df['Prob_D']>df['Prob_bk_D']) & (df['Prob_D']>seuil_pari), 1 , 0)
 	df['bet_A?'] = np.where((df['Prob_A']>df['Prob_bk_A']) & (df['Prob_A']>seuil_pari), 1 , 0)
-	df = df.fillna(0)
-	st.write("ici1")
+	df = df.fillna(0)	
 
 #dictionnaire pour attribuer un chiffre à un resultat de pari
 	dic_resultat = {0: 'bk_H', 1: 'bk_D', 2: 'bk_A'}
@@ -154,7 +152,7 @@ elif dataset == "Saison 15-16":
 	df['bet_D?'] = np.where((df['Prob_D']>df['Prob_bk_D']) & (df['Prob_D']>seuil_pari), 1 , 0)
 	df['bet_A?'] = np.where((df['Prob_A']>df['Prob_bk_A']) & (df['Prob_A']>seuil_pari), 1 , 0)
 	df = df.fillna(0)
-	st.write("ici2")
+	
 #dictionnaire pour attribuer un chiffre à un resultat de pari
 	dic_resultat = {0: 'bk_H', 1: 'bk_D', 2: 'bk_A'}
 # Simulation de paris
@@ -185,7 +183,7 @@ elif dataset == "Saison 16-17":
 	df['bet_D?'] = np.where((df['Prob_D']>df['Prob_bk_D']) & (df['Prob_D']>seuil_pari), 1 , 0)
 	df['bet_A?'] = np.where((df['Prob_A']>df['Prob_bk_A']) & (df['Prob_A']>seuil_pari), 1 , 0)
 	df = df.fillna(0)
-	st.write("ici3")
+	
 #dictionnaire pour attribuer un chiffre à un resultat de pari
 	dic_resultat = {0: 'bk_H', 1: 'bk_D', 2: 'bk_A'}
 # Simulation de paris
@@ -216,7 +214,7 @@ elif dataset == "Saison 17-18":
 	df['bet_D?'] = np.where((df['Prob_D']>df['Prob_bk_D']) & (df['Prob_D']>seuil_pari), 1 , 0)
 	df['bet_A?'] = np.where((df['Prob_A']>df['Prob_bk_A']) & (df['Prob_A']>seuil_pari), 1 , 0)
 	df = df.fillna(0)
-	st.write("ici4")
+	
 #dictionnaire pour attribuer un chiffre à un resultat de pari
 	dic_resultat = {0: 'bk_H', 1: 'bk_D', 2: 'bk_A'}
 # Simulation de paris
